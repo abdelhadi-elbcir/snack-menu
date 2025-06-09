@@ -1,31 +1,49 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios';
 
 function App() {
-
   const [categories, setCategories] = useState([]);
-  
+  const [page] = useState(0);
+  const [size] = useState(20);
 
   useEffect(() => {
-    // Fetch menu items from an API or define them statically
     const fetchMenuItems = async () => {
-        axios.get('https://localhost:8081/menu')
-    }
+      try {
+        const response = await axios.get(`http://localhost:8081/api/categories?page=${page}&size=${size}`);
+        setCategories(response.data.content);
+      } catch (error) {
+        console.error('Failed to fetch categories:', error);
+      }
+    };
 
     fetchMenuItems();
-  }, []);
+  }, [page, size]);
 
   return (
-    <div className="App">
-      <div>
-        <h1>Menu</h1>
-        <ul>
-          {menuItems.map((item, index) => (
-            <li key={index}>{item.name} - ${item.price}</li>
-          ))}
-        </ul>
-      </div>
+    <div className="app-container">
+      <h1 className="app-title">Menu</h1>
+      {categories.map((category) => (
+        <div key={category.id} className="category">
+          <h2 className="category-title">{category.name}</h2>
+          {category.menuItems.length > 0 ? (
+            <ul className="menu-list">
+              {category.menuItems.map((item) => (
+                <li key={item.id} className="menu-item">
+                  <img src={"https://fastly.picsum.photos/id/30/1280/901.jpg?hmac=A_hpFyEavMBB7Dsmmp53kPXKmatwM05MUDatlWSgATE"} alt={item.name} className="menu-image" />
+                  <div className="menu-details">
+                    <h3 className="menu-name">{item.name}</h3>
+                    <p className="menu-description">{item.description}</p>
+                    <p className="menu-price">{item.price.toFixed(2)} (MAD)</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="empty-message">No items in this category.</p>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
