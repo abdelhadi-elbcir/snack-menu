@@ -28,8 +28,7 @@ jobs:
         ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
           cd /root/menu
           npm install
-          cp .env.production .env
-          NODE_ENV=production npm run build
+          npm run build
           sudo cp -rf build/* /usr/share/nginx/html/menu
         EOF
 
