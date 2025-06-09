@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import axios from 'axios';
 
 function App() {
+
+  const [categories, setCategories] = useState([]);
+  
+
+  useEffect(() => {
+    // Fetch menu items from an API or define them statically
+    const fetchMenuItems = async () => {
+        axios.get('https://localhost:8081/menu')
+    }
+
+    fetchMenuItems();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <h1>Menu</h1>
+        <ul>
+          {menuItems.map((item, index) => (
+            <li key={index}>{item.name} - ${item.price}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
