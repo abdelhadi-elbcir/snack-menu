@@ -21,7 +21,7 @@ jobs:
 
     - name: Copy Files to VPS
       run: |
-        rsync -avz --delete --exclude=".git" -e "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/root/frontend
+        rsync -avz --delete --exclude=".git" -e "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/root/menu
 
     - name: Install Dependencies and Build App
       run: |
