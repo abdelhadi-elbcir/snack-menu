@@ -26,17 +26,10 @@ jobs:
     - name: Install Dependencies and Build App
       run: |
         ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
-          cd /root/frontend  # Use the correct path used in rsync
+          cd /root/menu
           npm install
-          if [ -f .env.production ]; then
-            cp .env.production .env
-          fi
+          cp .env.production .env
           NODE_ENV=production npm run build
-          if [ -d build ]; then
-            sudo cp -rf build/* /usr/share/nginx/html/menu
-          else
-            echo "Build directory not found!"
-            exit 1
-          fi
+          sudo cp -rf build/* /usr/share/nginx/html/menu
         EOF
 
