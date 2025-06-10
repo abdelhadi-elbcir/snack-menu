@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
-        const response = await axios.get(`http://localhost:8081/api/categories?page=${page}&size=${size}`);
+        const response = await axios.get(`https://srv796999.hstgr.cloud/backend/api/categories?page=${page}&size=${size}`);
         setCategories(response.data.content);
       } catch (error) {
         console.error('Failed to fetch categories:', error);
