@@ -30,7 +30,7 @@ function App() {
             <ul className="menu-list">
               {category.menuItems.map((item) => (
                 <li key={item.id} className="menu-item">
-                  <img src={"https://fastly.picsum.photos/id/30/1280/901.jpg?hmac=A_hpFyEavMBB7Dsmmp53kPXKmatwM05MUDatlWSgATE"} alt={item.name} className="menu-image" />
+                  <img src={`https://srv796999.hstgr.cloud/backend/api/images/${it.imageUrl}`} alt={item.name} className="menu-image" />
                   <div className="menu-details">
                     <h3 className="menu-name">{item.name}</h3>
                     <p className="menu-description">{item.description}</p>
